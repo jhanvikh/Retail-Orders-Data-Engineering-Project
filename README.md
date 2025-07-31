@@ -39,3 +39,9 @@ It covers the complete **ETL (Extract, Transform, Load)** process along with **a
    df['profit'] = df['sale_price'] - df['cost_price']
    df['order_date'] = pd.to_datetime(df['order_date'], format="%Y-%m-%d")
    df.drop(columns=['list_price', 'cost_price', 'discount_percent'], inplace=True)
+
+3. **Load**
+   ```python
+   import sqlalchemy as sal
+    engine = sal.create_engine('mssql://SERVER_NAME/DB_NAME?driver=ODBC+DRIVER+17+FOR+SQL+SERVER')
+    df.to_sql('df_orders', con=engine, index=False, if_exists='append')
